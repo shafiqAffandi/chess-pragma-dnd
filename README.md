@@ -14,6 +14,7 @@ Base code from [Pragmatic Drag n Drop - Tutorial](https://atlassian.design/compo
   - [ ] rook
   - [ ] knight
   - [ ] bishop
+- [ ] add collision mechanism
 - [ ] two color piece (black and white)
 - [ ] white piece can only ate black piece and vice versa
 - [ ] show what piece has been eaten for each color
