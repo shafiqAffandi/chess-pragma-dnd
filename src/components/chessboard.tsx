@@ -14,7 +14,7 @@ import { Coord, PieceRecord, PieceType } from "../shared/lib/types";
 const chessPieces: PieceRecord[] = [
   { type: "king", location: [3, 3] },
   { type: "pawn", location: [3, 4] },
-  { type: "pawn", location: [3, 5] },
+  { type: "rook", location: [3, 5] },
 ];
 
 const eatenPiecesAtom = atom<PieceType[]>([]);

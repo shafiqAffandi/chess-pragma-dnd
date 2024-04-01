@@ -2,6 +2,7 @@ import { ReactElement, useEffect, useRef, useState } from "react";
 import { Coord, PieceType } from "../shared/lib/types";
 import king from "../assets/king.png";
 import pawn from "../assets/pawn.png";
+import rook from "../assets/rook.png";
 import invariant from "tiny-invariant";
 import { css } from "@emotion/react";
 import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
@@ -24,7 +25,7 @@ export const pieceLookup: {
   ),
   bishop: () => <></>,
   queen: () => <></>,
-  rook: () => <></>,
+  rook: (location) => <Rook location={location} />,
 };
 
 export function King({location}: {location :Coord}) {
@@ -33,6 +34,10 @@ export function King({location}: {location :Coord}) {
 
 export function Pawn({location}: {location :Coord}) {
   return <Piece image={pawn} alt="Pawn" location={location} pieceType="pawn"/>;
+}
+
+export function Rook({location}: {location :Coord}) {
+  return <Piece image={rook} alt="Rook" location={location} pieceType="rook"/>;
 }
 
 export function Piece({ location, pieceType, image, alt }: PieceProps) {

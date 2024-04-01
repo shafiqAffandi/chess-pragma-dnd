@@ -47,7 +47,12 @@ export function canMove(
       ];
     case "pawn":
       return [colDist === 0 && start[0] - destination[0] === -1, caughtPiece];
-    default:
+    case "rook":
+      return [
+        ([0,1,2,3,4,5,6,7,8].includes(rowDist) && colDist === 0) || ([0,1,2,3,4,5,6,7,8].includes(colDist) && rowDist === 0),
+        caughtPiece,
+      ];
+      default:
       return [false, null];
   }
 }
