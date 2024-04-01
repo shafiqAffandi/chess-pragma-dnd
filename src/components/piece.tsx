@@ -17,15 +17,23 @@ export const pieceLookup: {
   [Key in PieceType]: (location: Coord) => ReactElement;
 } = {
   king: (location) => (
-    <Piece image={king} alt="King" location={location} pieceType="king" />
+    <King location={location}/>
   ),
   pawn: (location) => (
-    <Piece image={pawn} alt="Pawn" location={location} pieceType="pawn" />
+    <Pawn location={location} />
   ),
   bishop: () => <></>,
   queen: () => <></>,
   rook: () => <></>,
 };
+
+export function King({location}: {location :Coord}) {
+  return <Piece image={king} alt="King" location={location} pieceType="king" />;
+}
+
+export function Pawn({location}: {location :Coord}) {
+  return <Piece image={pawn} alt="Pawn" location={location} pieceType="pawn"/>;
+}
 
 export function Piece({ location, pieceType, image, alt }: PieceProps) {
   const ref = useRef(null);

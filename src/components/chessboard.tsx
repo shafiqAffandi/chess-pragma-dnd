@@ -12,14 +12,15 @@ import {
 import { Coord, PieceRecord, PieceType } from "../shared/lib/types";
 
 const chessPieces: PieceRecord[] = [
-  { type: "king", location: [3, 2] },
+  { type: "king", location: [3, 3] },
   { type: "pawn", location: [3, 4] },
+  { type: "pawn", location: [3, 5] },
 ];
 
 const eatenPiecesAtom = atom<PieceType[]>([]);
 
 function Chessboard() {
-  const [pieces, setPieces] = useState<PieceRecord[]>(chessPieces);
+  const [pieces, setPieces] = useState<PieceRecord[]>([...chessPieces]);
   const [eatenPieces, setEatenPieces] = useAtom(eatenPiecesAtom);
 
   useEffect(() => {
@@ -43,16 +44,9 @@ function Chessboard() {
           return;
         }
 
-        console.log("destination--=", destination);
-        console.log("source--=", source);
-        console.log("destinationLocation==", destinationLocation);
-        console.log("sourceLocation==", sourceLocation);
-        console.log("pieceType==", pieceType);
-
         const piece = pieces.find((p) =>
           isEqualCoord(p.location, sourceLocation)
         );
-        const restOfPieces = pieces.filter((p) => p !== piece);
 
         const tryAMove = canMove(
           sourceLocation,
@@ -64,10 +58,16 @@ function Chessboard() {
         if (tryAMove[0] && piece !== undefined) {
           if (tryAMove[1] !== null) {
             const _piece = tryAMove[1];
+            const pieceIdxToRemove = pieces.findIndex((p) =>
+              isEqualCoord(p.location, destinationLocation)
+            );
+            pieces.splice(pieceIdxToRemove, 1);
             setEatenPieces((data) => {
               return [...data, _piece];
             });
+            
           }
+          const restOfPieces = pieces.filter((p) => p !== piece);
           // moving the piece!
           setPieces([
             { type: piece.type, location: destinationLocation },
@@ -83,10 +83,10 @@ function Chessboard() {
       <div css={chessboardStyles}>{renderSquares(pieces)}</div>
       <div>
         <p>eaten piece</p>
-        <p>{eatenPieces}</p>
+        <p>{JSON.stringify(eatenPieces)}</p>
         <button
           onClick={() => {
-            setPieces(() => chessPieces);
+            setPieces(() => [...chessPieces]);
             setEatenPieces(() => []);
           }}
         >
