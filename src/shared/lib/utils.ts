@@ -22,6 +22,11 @@ export function canMove(
   pieceType: PieceType,
   pieces: PieceRecord[]
 ): [boolean, PieceType | null] {
+  // guard if piece dropped on the same col and row
+  if (start[0] === destination[0] && start[1] === destination[1]) {
+    return [false, null]
+  }
+
   const rowDist = Math.abs(start[0] - destination[0]);
   const colDist = Math.abs(start[1] - destination[1]);
 
